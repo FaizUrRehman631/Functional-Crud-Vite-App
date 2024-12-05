@@ -14,14 +14,14 @@ export const Data = [
     email: "bistrorocketni8@gmail.com",
   },
   {
-    id: 3421534,
+    id: 42154,
     firstName: "Huzaifa",
     lastName: "Suhail",
     age: 23,
     email: "riterocketni8@gmail.com",
   },
   {
-    id: 34232434,
+    id: 342324,
     firstName: "Anas",
     lastName: "Maqsood",
     age: 40,
@@ -33,13 +33,6 @@ export const Data = [
     lastName: "Hussain",
     age: 28,
     email: "ayesha.hussain@example.com",
-  },
-  {
-    id: 34121434,
-    firstName: "Hassan",
-    lastName: "Cheema",
-    age: 34,
-    email: "socketni8@gmail.com",
   },
   {
     id: 123456,
@@ -122,7 +115,7 @@ export const Data = [
     id: 445566,
     firstName: "Hamza",
     lastName: "Iqbal",
-    age: 34,
+    age: 40,
     email: "hamza.iqbal@example.com",
   },
   {
@@ -147,7 +140,7 @@ export const Data = [
     email: "anum.naeem@example.com",
   },
   {
-    id: 1239,
+    id: 123129,
     firstName: "Hafsa",
     lastName: "Anoosha",
     age: 27,

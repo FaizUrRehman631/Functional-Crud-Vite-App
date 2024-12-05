@@ -1,5 +1,7 @@
 import { Data } from "./EmployeeData";
 import { useState, useEffect } from "react";
+import * as XLSX from "xlsx"; // Import XLSX for Excel handling
+import CheckBoxFilter from "./CheckboxFilter";
 
 function App() {
   // State for managing table data
@@ -14,11 +16,6 @@ function App() {
   const [searchQuery, setSearchQuery] = useState("");
   const [orderBy, setOrderBy] = useState("");
   const [newFilteredData, setNewFilteredData] = useState([]);
-
-  useEffect(() => {
-    setData(Data);
-    setNewFilteredData(Data);
-  }, []);
 
   useEffect(() => {
     const savedData = localStorage.getItem("Data");
@@ -114,6 +111,15 @@ function App() {
     setData([...data, newRecord]);
     handleClear(); // Reset fields after saving
   };
+  // Download data into Excel
+  const handleExportToExcel = () => {
+    const worksheet = XLSX.utils.json_to_sheet(data);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Employees");
+
+    // Trigger the download
+    XLSX.writeFile(workbook, "EmployeeData.xlsx");
+  };
   // Handle update action: modify an existing record
   const handleUpdate = () => {
     // Trim spaces and validate fields
@@ -163,15 +169,20 @@ function App() {
 
   return (
     <>
-      <div className="container text-center my-2 mb-4 ">
-        <div className="container d-flex justify-content-center">
-          <h2
-            className="text-light bg-success  rounded mb-3"
-            style={{ width: "30%" }}
-          >
-            CRUD OPERATION
-          </h2>
+      <nav className="navbar navbar-expand-lg sticky-top bg-body-tertiary">
+        <div className="container-fluid">
+          <a className="navbar-brand" href="#">
+            UserManagement
+          </a>
+          <button className="btn btn-success" onClick={handleExportToExcel}>
+            <i className="fa-solid fa-circle-arrow-down fs-5"></i>
+          </button>
         </div>
+      </nav>
+      <h2 className="text-light bg-success mt-1 text-center mb-3">
+        CRUD OPERATION
+      </h2>
+      <div className="container text-center my-2 mb-4 ">
         <h2 className="text-light-emphasis">
           {" "}
           <span className="text-success">Create</span> -{" "}
@@ -180,10 +191,14 @@ function App() {
           <span className="text-danger">Delete</span>
         </h2>
         <div
-          className="badge text-bg-primary fs-6 text-wrap"
+          className="badge text-bg-primary fs-6 text-wrap mt-2"
           style={{ width: "16rem" }}
         >
           Using useState and useEffect
+        </div>{" "}
+        <br></br>
+        <div className=" badge text-bg-success bg-black bg-gradient text-light fs-5 mt-2">
+          DanZee Tech
         </div>
       </div>
       <div className="container text-center my-2 d-flex justify-content-evenly ">
@@ -233,7 +248,7 @@ function App() {
         </button>
       </div>
       {/* Search button  */}
-      <div className="container text-center my-2 d-flex justify-content-center gap-2">
+      <div className="container text-center sticky-top my-2 d-flex justify-content-center gap-2">
         <select
           className="form-select w-auto d-inline-block"
           onChange={(e) => setOrderBy(e.target.value)}
@@ -258,7 +273,7 @@ function App() {
           Clear Search
         </button>
       </div>
-
+      <CheckBoxFilter/>
       <div className="container my-4 ">
         <table className="table table-hover text-center">
           <thead>
